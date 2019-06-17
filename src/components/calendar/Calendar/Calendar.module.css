@@ -1,0 +1,23 @@
+.wrapper {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+/* .controlButton {
+  composes: base from '../../buttons/Button.module.css';
+
+  padding: 1rem;
+  background-color: gray;
+} */
+
+.controlButton:not(:last-child) {
+  margin-right: 0.5rem;
+}

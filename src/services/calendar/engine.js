@@ -1,4 +1,4 @@
-import MonthPosition from './monthPosition';
+import MonthType from './monthType';
 
 const isLeapYear = year =>
   year % 4 === 0
@@ -23,10 +23,10 @@ const getLastDayNumber = (year, month) => {
   }
 };
 
-const makeDay = (day, isCurrent, monthPosition) => ({
-  day,
+const makeDay = (date, isCurrent, monthType) => ({
+  date,
   isCurrent,
-  monthPosition
+  monthType
 });
 
 const getCalendarFirstWeek = (year, month, currentDay) => {
@@ -37,14 +37,18 @@ const getCalendarFirstWeek = (year, month, currentDay) => {
     prevMonth = month === 0 ? 11 : month - 1,
     prevYear = prevMonth === 11 ? year - 1 : year;
 
-  week[firstDayIndex] = makeDay(1, 1 === currentDay, MonthPosition.Current);
+  week[firstDayIndex] = makeDay(firstDate, 1 === currentDay, MonthType.Current);
 
   if (firstDayIndex > 0) {
     let day = getLastDayNumber(prevYear, prevMonth),
       index = firstDayIndex;
 
     while (index > 0) {
-      week[--index] = makeDay(day--, false, MonthPosition.Previous);
+      week[--index] = makeDay(
+        new Date(prevYear, prevMonth, day--),
+        false,
+        MonthType.Previous
+      );
     }
   }
 
@@ -53,7 +57,11 @@ const getCalendarFirstWeek = (year, month, currentDay) => {
       index = firstDayIndex;
 
     while (index < 6) {
-      week[++index] = makeDay(++day, day === currentDay, MonthPosition.Current);
+      week[++index] = makeDay(
+        new Date(year, month, ++day),
+        day === currentDay,
+        MonthType.Current
+      );
     }
   }
 
@@ -65,12 +73,14 @@ const getCalendarLastWeek = (year, month, currentDay) => {
     lastDayNumber = getLastDayNumber(year, month),
     lastDate = new Date(year, month, lastDayNumber),
     lastDay = lastDate.getDay(),
-    lastDayIndex = lastDay === 0 ? 6 : lastDay - 1;
+    lastDayIndex = lastDay === 0 ? 6 : lastDay - 1,
+    nextMonth = month === 11 ? 0 : month + 1,
+    nextYear = month === 11 ? year + 1 : year;
 
   week[lastDayIndex] = makeDay(
-    lastDayNumber,
+    new Date(year, month, lastDayNumber),
     lastDayNumber === currentDay,
-    MonthPosition.Current
+    MonthType.Current
   );
 
   if (lastDayIndex > 0) {
@@ -78,7 +88,11 @@ const getCalendarLastWeek = (year, month, currentDay) => {
       index = lastDayIndex;
 
     while (index > 0) {
-      week[--index] = makeDay(--day, day === currentDay, MonthPosition.Current);
+      week[--index] = makeDay(
+        new Date(year, month, --day),
+        day === currentDay,
+        MonthType.Current
+      );
     }
   }
 
@@ -87,20 +101,36 @@ const getCalendarLastWeek = (year, month, currentDay) => {
       index = lastDayIndex;
 
     while (index < 6) {
-      week[++index] = makeDay(day++, false, MonthPosition.Next);
+      week[++index] = makeDay(
+        new Date(nextYear, nextMonth, day++),
+        false,
+        MonthType.Next
+      );
     }
   }
 
   return week;
 };
 
-const getCalendarInterimWeeks = (firstDay, lastDay, currentDay) => {
+const getCalendarInterimWeeks = (
+  year,
+  month,
+  firstDay,
+  lastDay,
+  currentDay
+) => {
   const days = [];
   let day = firstDay,
-    finalDay = lastDay - 1;
+    finalDay = lastDay;
 
   while (day < finalDay) {
-    days.push(makeDay(++day, day === currentDay, MonthPosition.Current));
+    days.push(
+      makeDay(
+        new Date(year, month, day),
+        day++ === currentDay,
+        MonthType.Current
+      )
+    );
   }
 
   return days;
@@ -112,12 +142,20 @@ const getCalendar = (date = new Date()) => {
     month = date.getMonth(),
     day =
       now.getFullYear() === year && now.getMonth() === month
-        ? date.getDate()
+        ? now.getDate()
         : undefined;
+
+  console.log(day);
 
   const first = getCalendarFirstWeek(year, month, day),
     last = getCalendarLastWeek(year, month, day),
-    interim = getCalendarInterimWeeks(first[6].day + 1, last[0].day - 1, day);
+    interim = getCalendarInterimWeeks(
+      year,
+      month,
+      first[6].date.getDate() + 1,
+      last[0].date.getDate(),
+      day
+    );
 
   return [...first, ...interim, ...last];
 };

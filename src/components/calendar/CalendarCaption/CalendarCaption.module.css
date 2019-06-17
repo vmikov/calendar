@@ -1,0 +1,10 @@
+.dayName {
+  padding: 0.5rem calc(1rem / 4);
+  flex-basis: calc(100% / 7);
+  border-right: 1px solid var(--calendar-border-color);
+  text-align: left;
+}
+
+.dayName:nth-child(7n) {
+  border-right: none;
+}

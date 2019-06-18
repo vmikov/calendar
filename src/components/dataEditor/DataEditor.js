@@ -4,6 +4,7 @@ import { isOpen, getDate, getData } from '../../store/dataEditor/selectors';
 import { closeEditor } from '../../store/dataEditor/actions';
 import { setCalendarData } from '../../store/data/actions';
 import s from './DataEditor.module.css';
+import bs from '../buttons/Button.module.css';
 
 class DataEditor extends Component {
   state = {
@@ -83,8 +84,17 @@ class DataEditor extends Component {
                 {data}
               </textarea>
               <div className={s.buttons}>
-                <button type='submit'>Сохранить</button>
-                <button type='button' onClick={this.closeModal}>
+                <button
+                  type='submit'
+                  className={[bs.standard, s.controlButton].join(' ')}
+                >
+                  Сохранить
+                </button>
+                <button
+                  type='button'
+                  className={[bs.standard, s.controlButton].join(' ')}
+                  onClick={this.closeModal}
+                >
                   Отмена
                 </button>
               </div>

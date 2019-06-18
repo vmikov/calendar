@@ -12,27 +12,28 @@ import {
   getPrevMonthDate,
   getNextMonthDate
 } from '../../../services/calendar/generator';
+import bs from '../../buttons/Button.module.css';
 import s from './Calendar.module.css';
 
 const Calendar = ({ date, calendar, dayNames, setDate, editor }) => (
   <div className={s.wrapper}>
     <div className={s.dashboard}>
       <button
-        className={s.controlButton}
+        className={[bs.standard, s.controlButton].join(' ')}
         type='button'
         onClick={() => setDate(getPrevMonthDate(date))}
       >
         Назад
       </button>
       <button
-        className={s.controlButton}
+        className={[bs.standard, s.controlButton].join(' ')}
         type='button'
         onClick={() => setDate(getCurrMonthDate())}
       >
         Сегодня
       </button>
       <button
-        className={s.controlButton}
+        className={[bs.standard, s.controlButton].join(' ')}
         type='button'
         onClick={() => setDate(getNextMonthDate(date))}
       >

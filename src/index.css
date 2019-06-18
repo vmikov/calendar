@@ -13,7 +13,11 @@ html {
   --calendar-border-color: darkgray;
   --current-highlight-color: orangered;
   --bg-base-color: white;
+  --bg-active-color: black;
+  --bg-button-color: gray;
   --filled-color: gold;
+  --modal-header-color: whitesmoke;
+  --backdrop-color: rgba(0, 0, 0, 0.3);
 }
 
 body {

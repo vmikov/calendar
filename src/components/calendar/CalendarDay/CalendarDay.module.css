@@ -19,7 +19,7 @@
   text-decoration: none;
   overflow: hidden;
   background-color: var(--bg-base-color);
-  transition: all 0.2s;
+  transition: all 0.1s;
 }
 
 .day:hover {

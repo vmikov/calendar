@@ -2,12 +2,12 @@ import { createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import dateReducer from './calendar/reducer';
 import dataReducer from './data/reducer';
-import modalReducer from './modal/reducer';
+import dataEditorReducer from './dataEditor/reducer';
 
 const reducer = combineReducers({
   date: dateReducer,
   data: dataReducer,
-  modal: modalReducer
+  dataEditor: dataEditorReducer
 });
 
 const store = createStore(reducer, composeWithDevTools());

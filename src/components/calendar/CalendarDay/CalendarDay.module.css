@@ -4,7 +4,7 @@
 }
 
 .filled {
-  background-color: rgb(145, 255, 191);
+  background-color: var(--filled-color);
 }
 
 .day {
@@ -17,25 +17,30 @@
   border-right: 1px solid var(--calendar-border-color);
   text-align: left;
   text-decoration: none;
+  overflow: hidden;
+  background-color: var(--bg-base-color);
+  transition: all 0.2s;
 }
 
-.day:hover::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.day:hover {
   box-shadow: 0 0 1.5rem var(--calendar-border-color);
+  transform: scale(1.1);
+  z-index: 2;
 }
 
 .day:nth-child(7n) {
   border-right: none;
 }
 
-.current {
-  box-shadow: inset 0 0 0 4px orangered;
+.current::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 0 4px var(--current-highlight-color);
 }
 
 .info {
@@ -44,5 +49,19 @@
   top: 0;
   width: 100%;
   height: 100%;
-  padding: 0 calc(1rem / 4) calc(1rem / 4);
+  display: flex;
+  flex-direction: column;
+}
+
+.caption {
+  padding: calc(1rem / 4) calc(1rem / 4) 0;
+}
+
+.data {
+  padding: calc(1rem / 4);
+  flex-grow: 1;
+}
+
+.formatter {
+  margin: 0;
 }

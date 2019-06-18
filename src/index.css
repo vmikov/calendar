@@ -10,7 +10,10 @@ html {
 
 :root {
   --inactive-color: lightgray;
-  --calendar-border-color: lightgray;
+  --calendar-border-color: darkgray;
+  --current-highlight-color: orangered;
+  --bg-base-color: white;
+  --filled-color: gold;
 }
 
 body {

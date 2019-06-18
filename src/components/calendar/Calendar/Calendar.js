@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import CalendarInfo from '../CalendarInfo';
 import CalendarDayNames from '../CalendarDayNames';
 import CalendarPanel from '../CalendarPanel';
+import DataEditor from '../../dataEditor/DataEditor';
 import * as calendarSelectors from '../../../store/calendar/selectors';
 import * as calendarActions from '../../../store/calendar/actions';
+import { openEditor as editor } from '../../../store/dataEditor/actions';
 import {
   getCurrMonthDate,
   getPrevMonthDate,
@@ -12,7 +14,7 @@ import {
 } from '../../../services/calendar/generator';
 import s from './Calendar.module.css';
 
-const Calendar = ({ date, calendar, dayNames, setDate }) => (
+const Calendar = ({ date, calendar, dayNames, setDate, editor }) => (
   <div className={s.wrapper}>
     <div className={s.dashboard}>
       <button
@@ -40,8 +42,9 @@ const Calendar = ({ date, calendar, dayNames, setDate }) => (
     <CalendarInfo date={date} />
     <div className={s.calendar}>
       <CalendarDayNames dayNames={dayNames} />
-      <CalendarPanel calendar={calendar} />
+      <CalendarPanel calendar={calendar} editor={editor} />
     </div>
+    <DataEditor />
   </div>
 );
 
@@ -50,7 +53,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  setDate: calendarActions.setCalendarMonth
+  setDate: calendarActions.setCalendarMonth,
+  editor
 };
 
 export default connect(

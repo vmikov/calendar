@@ -1,15 +1,19 @@
 import * as actionTypes from './actionTypes';
 
-export const openEditor = () => ({
+export const openEditor = (date, data) => ({
   type: actionTypes.OPEN_CALENDAR_EDITOR,
   payload: {
-    openModal: true
+    isOpen: true,
+    date,
+    data
   }
 });
 
 export const closeEditor = () => ({
   type: actionTypes.CLOSE_CALENDAR_EDITOR,
   payload: {
-    openModal: false
+    isOpen: false,
+    date: null,
+    data: null
   }
 });

@@ -1,0 +1,67 @@
+.backdrop {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* transition: opacity 100ms linear; */
+}
+
+.modal {
+  max-width: 90%;
+  min-width: 50%;
+  padding: 0 30px 20px;
+  min-height: 300px;
+  background-color: #fff;
+  word-wrap: break-word;
+  /* transition: opacity 200ms linear; */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 10px 3px 15px;
+  margin: 0 -30px 20px;
+  background-color: whitesmoke;
+}
+
+.title {
+  font-size: 1.25rem;
+}
+
+.closeButton {
+  align-self: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+.form {
+  text-align: left;
+}
+
+.form > * {
+  display: block;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.textarea {
+  width: 100%;
+  resize: none;
+  font-size: 1.3rem;
+}
+
+.buttons {
+  text-align: center;
+}

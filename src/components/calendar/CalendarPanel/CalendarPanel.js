@@ -9,7 +9,7 @@ const CalendarPanel = ({ calendar }) => (
         isCurrent={item.isCurrent}
         monthType={item.monthType}
         day={item.date.getDate()}
-        notes={item.notes}
+        data={item.data}
       />
     ))}
   </>

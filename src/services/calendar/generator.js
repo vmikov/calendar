@@ -23,13 +23,14 @@ const getLastDayNumber = (year, month) => {
   }
 };
 
-const makeDay = (date, isCurrent, monthType) => ({
+const makeDay = (date, isCurrent, monthType, data) => ({
   date,
   isCurrent,
-  monthType
+  monthType,
+  data: data[date.getTime()]
 });
 
-const getCalendarFirstWeek = (year, month, currentDay) => {
+const getCalendarFirstWeek = (year, month, currentDay, data) => {
   const week = [],
     firstDate = new Date(year, month, 1),
     firstDay = firstDate.getDay(),
@@ -37,7 +38,12 @@ const getCalendarFirstWeek = (year, month, currentDay) => {
     prevMonth = month === 0 ? 11 : month - 1,
     prevYear = prevMonth === 11 ? year - 1 : year;
 
-  week[firstDayIndex] = makeDay(firstDate, 1 === currentDay, MonthType.Current);
+  week[firstDayIndex] = makeDay(
+    firstDate,
+    1 === currentDay,
+    MonthType.Current,
+    data
+  );
 
   if (firstDayIndex > 0) {
     let day = getLastDayNumber(prevYear, prevMonth),
@@ -47,7 +53,8 @@ const getCalendarFirstWeek = (year, month, currentDay) => {
       week[--index] = makeDay(
         new Date(prevYear, prevMonth, day--),
         false,
-        MonthType.Previous
+        MonthType.Previous,
+        data
       );
     }
   }
@@ -60,7 +67,8 @@ const getCalendarFirstWeek = (year, month, currentDay) => {
       week[++index] = makeDay(
         new Date(year, month, ++day),
         day === currentDay,
-        MonthType.Current
+        MonthType.Current,
+        data
       );
     }
   }
@@ -68,7 +76,7 @@ const getCalendarFirstWeek = (year, month, currentDay) => {
   return week;
 };
 
-const getCalendarLastWeek = (year, month, currentDay) => {
+const getCalendarLastWeek = (year, month, currentDay, data) => {
   const week = [],
     lastDayNumber = getLastDayNumber(year, month),
     lastDate = new Date(year, month, lastDayNumber),
@@ -80,7 +88,8 @@ const getCalendarLastWeek = (year, month, currentDay) => {
   week[lastDayIndex] = makeDay(
     new Date(year, month, lastDayNumber),
     lastDayNumber === currentDay,
-    MonthType.Current
+    MonthType.Current,
+    data
   );
 
   if (lastDayIndex > 0) {
@@ -91,7 +100,8 @@ const getCalendarLastWeek = (year, month, currentDay) => {
       week[--index] = makeDay(
         new Date(year, month, --day),
         day === currentDay,
-        MonthType.Current
+        MonthType.Current,
+        data
       );
     }
   }
@@ -104,7 +114,8 @@ const getCalendarLastWeek = (year, month, currentDay) => {
       week[++index] = makeDay(
         new Date(nextYear, nextMonth, day++),
         false,
-        MonthType.Next
+        MonthType.Next,
+        data
       );
     }
   }
@@ -117,7 +128,8 @@ const getCalendarInterimWeeks = (
   month,
   firstDay,
   lastDay,
-  currentDay
+  currentDay,
+  data
 ) => {
   const days = [];
   let day = firstDay,
@@ -128,7 +140,8 @@ const getCalendarInterimWeeks = (
       makeDay(
         new Date(year, month, day),
         day++ === currentDay,
-        MonthType.Current
+        MonthType.Current,
+        data
       )
     );
   }
@@ -136,7 +149,33 @@ const getCalendarInterimWeeks = (
   return days;
 };
 
-const getCalendar = (date = new Date()) => {
+export const getCurrMonthDate = () => {
+  const date = new Date(),
+    month = date.getMonth(),
+    year = date.getFullYear();
+
+  return new Date(year, month, 1);
+};
+
+export const getPrevMonthDate = date => {
+  const currMonth = date.getMonth(),
+    currYear = date.getFullYear(),
+    prevMonth = currMonth === 0 ? 11 : currMonth - 1,
+    prevYear = currMonth === 0 ? currYear - 1 : currYear;
+
+  return new Date(prevYear, prevMonth, 1);
+};
+
+export const getNextMonthDate = date => {
+  const currMonth = date.getMonth(),
+    currYear = date.getFullYear(),
+    nextMonth = currMonth === 11 ? 0 : currMonth + 1,
+    nextYear = currMonth === 11 ? currYear + 1 : currYear;
+
+  return new Date(nextYear, nextMonth, 1);
+};
+
+const getCalendar = (date = new Date(), data = {}) => {
   const now = new Date(),
     year = date.getFullYear(),
     month = date.getMonth(),
@@ -145,16 +184,15 @@ const getCalendar = (date = new Date()) => {
         ? now.getDate()
         : undefined;
 
-  console.log(day);
-
-  const first = getCalendarFirstWeek(year, month, day),
-    last = getCalendarLastWeek(year, month, day),
+  const first = getCalendarFirstWeek(year, month, day, data),
+    last = getCalendarLastWeek(year, month, day, data),
     interim = getCalendarInterimWeeks(
       year,
       month,
       first[6].date.getDate() + 1,
       last[0].date.getDate(),
-      day
+      day,
+      data
     );
 
   return [...first, ...interim, ...last];

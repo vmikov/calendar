@@ -1,7 +1,7 @@
 import React from 'react';
-import s from './CalendarCaption.module.css';
+import s from './CalendarDayNames.module.css';
 
-const CalendarCaption = ({ dayNames }) => (
+const CalendarDayNames = ({ dayNames }) => (
   <>
     {dayNames.map(item => (
       <div key={item} className={s.dayName}>
@@ -11,4 +11,4 @@ const CalendarCaption = ({ dayNames }) => (
   </>
 );
 
-export default CalendarCaption;
+export default CalendarDayNames;

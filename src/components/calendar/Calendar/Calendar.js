@@ -1,26 +1,59 @@
 import React from 'react';
-import CalendarCaption from '../CalendarCaption';
+import { connect } from 'react-redux';
+import CalendarInfo from '../CalendarInfo';
+import CalendarDayNames from '../CalendarDayNames';
 import CalendarPanel from '../CalendarPanel';
+import * as calendarSelectors from '../../../store/calendar/selectors';
+import * as calendarActions from '../../../store/calendar/actions';
+import {
+  getCurrMonthDate,
+  getPrevMonthDate,
+  getNextMonthDate
+} from '../../../services/calendar/generator';
 import s from './Calendar.module.css';
 
-const Calendar = ({ calendar, dayNames }) => (
+const Calendar = ({ date, calendar, dayNames, setDate }) => (
   <div className={s.wrapper}>
     <div className={s.dashboard}>
-      <button className={s.controlButton} type='button'>
+      <button
+        className={s.controlButton}
+        type='button'
+        onClick={() => setDate(getPrevMonthDate(date))}
+      >
         Назад
       </button>
-      <button className={s.controlButton} type='button'>
+      <button
+        className={s.controlButton}
+        type='button'
+        onClick={() => setDate(getCurrMonthDate())}
+      >
         Сегодня
       </button>
-      <button className={s.controlButton} type='button'>
+      <button
+        className={s.controlButton}
+        type='button'
+        onClick={() => setDate(getNextMonthDate(date))}
+      >
         Вперед
       </button>
     </div>
+    <CalendarInfo date={date} />
     <div className={s.calendar}>
-      <CalendarCaption dayNames={dayNames} />
+      <CalendarDayNames dayNames={dayNames} />
       <CalendarPanel calendar={calendar} />
     </div>
   </div>
 );
 
-export default Calendar;
+const mapStateToProps = state => ({
+  date: calendarSelectors.getDate(state)
+});
+
+const mapDispatchToProps = {
+  setDate: calendarActions.setCalendarMonth
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Calendar);

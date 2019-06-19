@@ -9,7 +9,3 @@
   flex-wrap: wrap;
   flex-shrink: 0;
 }
-
-.controlButton:not(:last-child) {
-  margin-right: 0.5rem;
-}

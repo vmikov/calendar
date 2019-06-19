@@ -25,3 +25,7 @@
 .standard:active {
   background-color: var(--bg-active-color);
 }
+
+.standard:not(:last-child) {
+  margin-right: 0.5rem;
+}

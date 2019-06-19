@@ -33,15 +33,6 @@
   font-size: 1.25rem;
 }
 
-.closeButton {
-  align-self: center;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  font-size: 2.5rem;
-  cursor: pointer;
-}
-
 .form {
   text-align: left;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './CalendarDayNames.module.css';
+import s from './CalendarHeader.module.css';
 
 const CalendarDayNames = ({ dayNames }) => (
   <>

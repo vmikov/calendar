@@ -1,10 +1,11 @@
 import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
+import CloseButton from '../buttons/CloseButton';
+import StandardButton from '../buttons/StandardButton';
 import { isOpen, getDate, getData } from '../../store/dataEditor/selectors';
 import { closeEditor } from '../../store/dataEditor/actions';
 import { setCalendarData } from '../../store/data/actions';
 import s from './DataEditor.module.css';
-import bs from '../buttons/Button.module.css';
 
 class DataEditor extends Component {
   state = {
@@ -61,13 +62,7 @@ class DataEditor extends Component {
           <div className={s.modal}>
             <div className={s.header}>
               <div className={s.title}>{date.toLocaleDateString()}</div>
-              <button
-                className={s.closeButton}
-                type='button'
-                onClick={this.closeModal}
-              >
-                &times;
-              </button>
+              <CloseButton onClick={this.closeModal} />
             </div>
             <form className={s.form} onSubmit={this.onSubmit}>
               <label className={s.label} htmlFor='data'>
@@ -84,19 +79,10 @@ class DataEditor extends Component {
                 {data}
               </textarea>
               <div className={s.buttons}>
-                <button
-                  type='submit'
-                  className={[bs.standard, s.controlButton].join(' ')}
-                >
-                  Сохранить
-                </button>
-                <button
-                  type='button'
-                  className={[bs.standard, s.controlButton].join(' ')}
-                  onClick={this.closeModal}
-                >
+                <StandardButton type='submit'>Сохранить</StandardButton>
+                <StandardButton onClick={this.closeModal}>
                   Отмена
-                </button>
+                </StandardButton>
               </div>
             </form>
           </div>

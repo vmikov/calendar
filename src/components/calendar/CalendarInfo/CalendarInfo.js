@@ -1,5 +1,5 @@
 import React from 'react';
-import monthNames from '../../../services/calendar/monthNames';
+import monthNames from '../../../services/monthNames';
 import s from './CalendarInfo.module.css';
 
 const CalendarInfo = ({ date }) => (

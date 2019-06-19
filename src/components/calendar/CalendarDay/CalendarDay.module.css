@@ -8,7 +8,10 @@
 }
 
 .day {
-  composes: base from '../../buttons/Button.module.css';
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
 
   position: relative;
   flex-basis: calc(100% / 7);

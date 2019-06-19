@@ -9,7 +9,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename='/calendar'>
+    <BrowserRouter>
       <Route component={App} />
     </BrowserRouter>
   </Provider>,

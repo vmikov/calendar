@@ -75,9 +75,8 @@ class DataEditor extends Component {
                 cols='30'
                 rows='15'
                 onChange={this.handleInput}
-              >
-                {data}
-              </textarea>
+                value={data}
+              />
               <div className={s.buttons}>
                 <StandardButton type='submit'>Сохранить</StandardButton>
                 <StandardButton onClick={this.closeModal}>

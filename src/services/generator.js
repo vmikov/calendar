@@ -1,27 +1,30 @@
 import MonthType from './monthType';
 
-const isLeapYear = year =>
-  year % 4 === 0
-    ? year % 100 === 0
-      ? year % 400 === 0
-        ? true
-        : false
-      : true
-    : false;
+// const isLeapYear = year =>
+//   year % 4 === 0
+//     ? year % 100 === 0
+//       ? year % 400 === 0
+//         ? true
+//         : false
+//       : true
+//     : false;
 
-const getLastDayNumber = (year, month) => {
-  switch (month) {
-    case 1:
-      return isLeapYear(year) ? 29 : 28;
-    case 3:
-    case 5:
-    case 8:
-    case 10:
-      return 30;
-    default:
-      return 31;
-  }
-};
+// const getLastDayNumber = (year, month) => {
+//   switch (month) {
+//     case 1:
+//       return isLeapYear(year) ? 29 : 28;
+//     case 3:
+//     case 5:
+//     case 8:
+//     case 10:
+//       return 30;
+//     default:
+//       return 31;
+//   }
+// };
+
+const getLastDayNumber = (year, month) =>
+  new Date(year, month + 1, 0).getDate();
 
 const makeDay = (date, isCurrent, monthType, data) => ({
   date,

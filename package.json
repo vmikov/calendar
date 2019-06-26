@@ -37,5 +37,5 @@
   "devDependencies": {
     "redux-devtools-extension": "^2.13.8"
   },
-  "homepage": "https://vmikov.github.io/calendar"
+  "homepage": "https://vmikov.github.io/calendar/"
 }
